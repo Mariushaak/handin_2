@@ -2,14 +2,16 @@
 #include <vector>
 #include <time.h>
 
-const int windowHeight = 1200;
+const int windowHeight = 1440;
 const int windowWidth = 1200;
 const int menuWidth = 400;
 int main() {
-
+	sf::Font font;
+	font.loadFromFile("joystix monospace.ttf");
 	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Tetris game");
 	sf::RectangleShape squares;
 	sf::RectangleShape playField;
+	sf::ConvexShape figure1;
 	playField.setSize(sf::Vector2f(800, windowHeight));
 	playField.setFillColor(sf::Color::Black);
 	playField.setOutlineThickness(windowWidth / 100);
@@ -17,12 +19,20 @@ int main() {
 	squares.setSize(sf::Vector2f((windowWidth - menuWidth) / 10, (windowWidth - menuWidth) / 10));
 	squares.setFillColor(sf::Color::Cyan);
 	sf::Clock time;
+	figure1.setPointCount(8);
 
 	int squareX = 0;
 	int squareY = 0;
 	bool downPressed = 0;
 	while (window.isOpen()) {
 		sf::Event event;
+		sf::Text score;
+		
+		score.setFont(font);
+		score.setFillColor(sf::Color::White);
+		score.setString("Score: ");
+		score.setCharacterSize(50);
+		score.setPosition(850, 200);
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
 				window.close();
@@ -47,7 +57,7 @@ int main() {
 		window.clear();
 		window.draw(playField);
 		window.draw(squares);
-		
+		window.draw(score);
 		window.display();
 	}
 
