@@ -2,17 +2,25 @@
 #include <vector>
 #include <time.h>
 
+const int windowHeight = 1200;
+const int windowWidth = 1200;
+const int menuWidth = 400;
 int main() {
 
-	sf::RenderWindow window(sf::VideoMode(1200, 800), "Tetris game");
+	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Tetris game");
 	sf::RectangleShape squares;
-	squares.setSize(sf::Vector2f(80, 80));
+	sf::RectangleShape playField;
+	playField.setSize(sf::Vector2f(800, windowHeight));
+	playField.setFillColor(sf::Color::Black);
+	playField.setOutlineThickness(windowWidth / 100);
+	playField.setOutlineColor(sf::Color::White);
+	squares.setSize(sf::Vector2f((windowWidth - menuWidth) / 10, (windowWidth - menuWidth) / 10));
 	squares.setFillColor(sf::Color::Cyan);
 	sf::Clock time;
 
 	int squareX = 0;
 	int squareY = 0;
-
+	bool downPressed = 0;
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -20,20 +28,26 @@ int main() {
 				window.close();
 			if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Left) && (squareX > 0))
 				squareX -= 80;
-			if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Right) && (squareX < 1120))
+			if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Right) && (squareX < 720))
 				squareX += 80;
+			if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Down)) {
+				squareY = windowHeight - ((windowWidth - menuWidth) / 10);
+				downPressed = true;
+			}
 		}
 
 		squares.setPosition(squareX, squareY);
-	
-		if(squareY < 720)
-		squareY = 80 * int (time.getElapsedTime().asSeconds());
+		playField.setPosition(0, 0);
+		if((squareY < windowHeight - ((windowWidth - menuWidth) / 10)) && !downPressed)
+		squareY = (windowWidth - menuWidth) / 10 * int (time.getElapsedTime().asSeconds());
 		
 		//DRAW :
 
 
 		window.clear();
+		window.draw(playField);
 		window.draw(squares);
+		
 		window.display();
 	}
 
