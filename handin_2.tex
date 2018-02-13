@@ -8,19 +8,59 @@
 \title{Hand in Module 2}
 \author{Marius Haakonsen, Ole K Larsen}
 
-
 \begin{document}
 
 \maketitle
 
 \section{Task 1:}
 
-Exercise A:  \\
+Exercise A  \\
 The both of us have already played Tetris, so we'll skip this part.  \\
 
+Exercise B \\
 
+Implementing the function void Board::reduce() to remove the lines when completed. \\
 
+Looping over row number i, from top to bottom. \\
+\begin{verbatim}
 
+	void Board::reduce() {
+	    for(int i = 3; i < 19; i++) {
+
+\end{verbatim}
+
+Defining variables to use while looping over j number of columns. \\
+\begin{verbatim}
+
+	        int count = 0;
+	        int tilecount = 0;
+	        for(int j = 1; j < 11; j++) {
+	            if (tiles[j][i] != sf::Color::Black) {
+	                count++;
+
+\end{verbatim}
+
+If all tiles in the row is set to black, looping upward begins, moving each tile
+in each row one down. \\
+\begin{verbatim}
+
+	                if(count == 10) {
+	                    tilecount = i;
+	                    for(int k = tilecount; k >= 3; k--) {
+	                        for(int j = 1; j < 11; j++) {
+	                            tiles[j][k] = tiles[j][k-1];
+	                        }
+	                    }
+	                    break;
+	                }
+	            }
+	        }
+	    }
+	}
+
+\end{verbatim}
+
+aaaaa
 \section{Task 2:}
 
 How was this puzzle created?
@@ -29,16 +69,33 @@ How was this puzzle created?
 
 Knight: Always tells the truth.
 Knave: 	Always tells a lie.
-Spy: 	Tells either the truth or a lie. \\
+Spy: 		Tells either the truth or a lie. \\
 
 The puzzle involves encountering three different people, person A, B and C. \\
 
 They all have their own statements:
-	A: "C is a knave."
-	B: "I am a knight."
-	C: "B is not a knight." \\
+
+	A: "I am the only knight."
+	B: "Me and A are knights."
+	C: "B is a knave." \\
 
 Who is the knight, who is the knave, and who is the spy among the three? \\
 
+
+Reformulated statements:
+
+	A: "B and C are not knights"
+	B: "C is the only one not telling the truth."
+	C: "B is not a knight." \\
+
+
+
+\section{Code Appendix:}
+
+\begin{verbatim}
+
+
+
+\end{verbatim}
 
 \end{document}
