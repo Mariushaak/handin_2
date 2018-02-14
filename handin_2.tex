@@ -37,26 +37,23 @@ Defining variables to use while looping over j number of columns. \\
 	        for(int j = 1; j < 11; j++) {
 	            if (tiles[j][i] != sf::Color::Black) {
 	                count++;
+	            }
+	        }
 
 \end{verbatim}
 
-If all tiles in the row is set to black, looping upward begins, moving each tile
-in each row one down. \\
+If all tiles in the row 'k' has a different color than black, the loop from 'k' rows and upwards is set to be equal to the row above it, giving the impression that the rows "fall down". \\
 \begin{verbatim}
 
-	                if(count == 10) {
-	                    tilecount = i;
-	                    for(int k = tilecount; k >= 3; k--) {
-	                        for(int j = 1; j < 11; j++) {
-	                            tiles[j][k] = tiles[j][k-1];
-	                        }
-	                    }
-	                    break;
-	                }
-	            }
-	        }
-	    }
-	}
+	              if(count == 10) {
+	                  tilecount = i;
+	                  for(int k = tilecount; k >= 3; k--) {
+	                      for(int j = 1; j < 11; j++) {
+	                          tiles[j][k] = tiles[j][k-1];
+	                      }
+	                  }
+	                  break;
+	              }
 
 \end{verbatim}
 
@@ -96,13 +93,13 @@ Reformulated statements:\\
 	 \hline
 	 Combinations & Is it true? & Would it be said? & Solution  \\ A  B  C   &   A  B  C  &   A  B  C & A  B  C \\
 	 \hline
-	 0  0  0   & AF    &AFG&   004\\
-	 0  0  1&   AX  & ALA   &248\\
-	 0  1  0 &AL & ALB&  008\\
-	 0  1  1    &DZ & DZA&  012\\
-	 1  0  0&   AS  & ASM&016\\
-	 1  0  1& AD  & AND   &020\\
-	 1  1  0& AO  & AGO&024\\
+	 0  1  x   & 0  0  1    & 1  0  x&   004\\
+	 0  x  1&   AX  & ALA   &248\\
+	 1  x  0 &AL & ALB&  008\\
+	 1  0  x    &DZ & DZA&  012\\
+	 x  0  1&   AS  & ASM&016\\
+	 x  1  0& AD  & AND   &020\\
+
 	 
 	 \hline
 	\end{tabular}
