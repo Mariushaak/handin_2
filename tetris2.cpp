@@ -312,6 +312,12 @@ int main()
 						cout << "intersect rotate" << endl;
 					}
 				}
+				if (event.key.code == sf::Keyboard::Space) {
+					while (!board.intersect(shape)) {
+						shape.pos.y += 1;
+						cout << "fast down" << endl;
+					}
+				}
 			}
 		}
 
