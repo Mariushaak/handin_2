@@ -37,26 +37,23 @@ Defining variables to use while looping over j number of columns. \\
 	        for(int j = 1; j < 11; j++) {
 	            if (tiles[j][i] != sf::Color::Black) {
 	                count++;
+	            }
+	        }
 
 \end{verbatim}
 
-If all tiles in the row is set to black, looping upward begins, moving each tile
-in each row one down. \\
+If all tiles in the row 'k' has a different color than black, the loop from 'k' rows and upwards is set to be equal to the row above it, giving the impression that the rows "fall down". \\
 \begin{verbatim}
 
-	                if(count == 10) {
-	                    tilecount = i;
-	                    for(int k = tilecount; k >= 3; k--) {
-	                        for(int j = 1; j < 11; j++) {
-	                            tiles[j][k] = tiles[j][k-1];
-	                        }
-	                    }
-	                    break;
-	                }
-	            }
-	        }
-	    }
-	}
+	              if(count == 10) {
+	                  tilecount = i;
+	                  for(int k = tilecount; k >= 3; k--) {
+	                      for(int j = 1; j < 11; j++) {
+	                          tiles[j][k] = tiles[j][k-1];
+	                      }
+	                  }
+	                  break;
+	              }
 
 \end{verbatim}
 
