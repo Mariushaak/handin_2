@@ -14,10 +14,10 @@
 
 \section{Task 1:}
 
-\textbf{Exercise A:}  \\
+Exercise A  \\
 The both of us have already played Tetris, so we'll skip this part.  \\
 
-\textbf{Exercise B:} \\
+Exercise B \\
 
 Implementing the function void Board::reduce() to remove the lines when completed. \\
 
@@ -37,28 +37,29 @@ Defining variables to use while looping over j number of columns. \\
 	        for(int j = 1; j < 11; j++) {
 	            if (tiles[j][i] != sf::Color::Black) {
 	                count++;
-	            }
-	        }
 
 \end{verbatim}
 
-
-If all tiles in the row 'k' has a different color than black, the loop from 'k' rows and upwards is set to be equal to the row above it, giving the impression that the rows "fall down". \\
+If all tiles in the row is set to black, looping upward begins, moving each tile
+in each row one down. \\
 \begin{verbatim}
 
-	              if(count == 10) {
-	                  tilecount = i;
-	                  for(int k = tilecount; k >= 3; k--) {
-	                      for(int j = 1; j < 11; j++) {
-	                          tiles[j][k] = tiles[j][k-1];
-	                      }
-	                  }
-	                  break;
-	              }
+	                if(count == 10) {
+	                    tilecount = i;
+	                    for(int k = tilecount; k >= 3; k--) {
+	                        for(int j = 1; j < 11; j++) {
+	                            tiles[j][k] = tiles[j][k-1];
+	                        }
+	                    }
+	                    break;
+	                }
+	            }
+	        }
+	    }
+	}
 
 \end{verbatim}
 
-As a little bonus practice we also added the opportunity to press the space key to make the shape move all the way down, and we added a score tab to the right.\\
 
 \section{Task 2:}
 
@@ -72,21 +73,35 @@ Spy: 		Tells either the truth or a lie. \\
 
 The puzzle involves encountering three different people, person A, B and C. \\
 
-They all have their own statements:
+They all have their own statements: \\
 
-	A: "I am the only knight."\\
-	B: "Me and A are knights."\\
-	C: "B is a knave." \\
+	A: "C is the knight."\\
+	B: "A is the knight."\\
+	C: "B is the knave." \\
 
 Who is the knight, who is the knave, and who is the spy among the three? \\
 
+\begin{tabular}{ |p{3cm}||p{3cm}|p{3cm}|p{3cm}|  }
+ \hline
+ \multicolumn{4}{|c|}{Knight, Knave and Spy} \\
+ \hline
+ Combinations & Is it true? & Would it be said? & Solution  \\ A  B  C   &   A  B  C  &   A  B  C & A  B  C \\
+ \hline
+	0   1   x  	& 0	0	0   & 1 0 x &  \\
+	1   0   x		& 0	1	1  	& 0 0 x &  \\
+	0   x   1 	&	1	0	0 	& 0 x 0 &  \\
+	1   x   1  	&	0	1	0 	& 0 x 1 &  \\
+	x   0   1		& 1	0	1  	& x 1 1 & 1\\
+	x   1   0		& 0	0	0  	& x 0 0 &  \\
 
-Reformulated statements:\\
+ \hline
+\end{tabular}
 
-	A: "B and C are not knights."\\
-	B: "C is the only one not telling the truth."\\
-	C: "B is not a knight." \\
+Reformulated statements, giving the same answer:\\
 
+	A: "C may tell the truth."\\
+	B: "C is not a knight."\\
+	C: "B may tell a lie." \\
 
 
 	\begin{tabular}{ |p{3cm}||p{3cm}|p{3cm}|p{3cm}|  }
@@ -95,14 +110,13 @@ Reformulated statements:\\
 	 \hline
 	 Combinations & Is it true? & Would it be said? & Solution  \\ A  B  C   &   A  B  C  &   A  B  C & A  B  C \\
 	 \hline
-	 0  1  x   & 0  0  1    & 1  0  x&   004\\
-	 0  x  1&   AX  & ALA   &248\\
-	 1  x  0 &AL & ALB&  008\\
-	 1  0  x    &DZ & DZA&  012\\
-	 x  0  1&   AS  & ASM&016\\
-	 x  1  0& AD  & AND   &020\\
+	  0   1   x  	& 1	1	0   & 0 1 x	&  \\
+	  1   0   x		& 1	1	1  	& 1 0 x &  \\
+	  0   x   1 	&	1	0	1 	& 0 x 1	&  \\
+	  1   x   1  	&	0	1	1 	& 0 x 0	&  \\
+	  x   0   1		& 1	0	1  	& x 1 1	& 1\\
+	  x   1   0		& 0	1	0  	& x 1 0 &  \\
 
-	 
 	 \hline
 	\end{tabular}
 
