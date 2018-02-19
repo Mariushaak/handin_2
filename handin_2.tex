@@ -60,8 +60,10 @@ As a little coding-exercise from out part, we also added the functionality of pr
 
 \section{Task 2:}
 
-How was this puzzle created?
-	Puzzling.stackexchange.com was utilized to get the correct specifications of the puzzle,
+\textbf{Exercise A:}\\
+
+How was this puzzle created? \\
+	Puzzling.stackexchange.com was utilized to get the correct specifications of the puzzle
 	and inspiration for the statements to be made by the three people in the encounter. \\
 
 Knight: Always tells the truth.\\
@@ -78,6 +80,7 @@ They all have their own statements: \\
 
 Who is the knight, who is the knave, and who is the spy among the three? \\
 
+To reach the solution of this, the statements are put in a table. \\
 \begin{tabular}{ |p{3cm}||p{3cm}|p{3cm}|p{3cm}|  }
  \hline
  \multicolumn{4}{|c|}{Knight, Knave and Spy} \\
@@ -90,10 +93,17 @@ Who is the knight, who is the knave, and who is the spy among the three? \\
 	1   x   1  	&	0	1	0 	& 0 x 1 &  \\
 	x   0   1		& 1	0	1  	& x 1 1 & 1\\
 	x   1   0		& 0	0	0  	& x 0 0 &  \\
-
  \hline
 \end{tabular}
 
+The solution is found by asking the two following questions: 'Is it true?' and 'Would it be said?'. \\
+
+Based on the combinations of these columns, and based on whether or not the person actually tells the truth or lies,
+we find the correct combination of knight knave and spy. The next to last row is the only possible solution,
+as shown by the 'x 1 1' outcome. This means that C is the knight, B is the knace and A is the spy. \\
+
+
+\textbf{Exercise B:} \\
 Reformulated statements, giving the same answer:\\
 
 	A: "C may tell the truth."\\
