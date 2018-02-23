@@ -77,7 +77,6 @@ void Shape::init()
 	}
 
 
-	// two hardcoded shapes - this should be changed by you
 	switch (rand() % 7) {
 
 	case 0:

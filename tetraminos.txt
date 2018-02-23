@@ -1,0 +1,7 @@
+file format 5x5
+1  0  0  0  0       tiles[0][0] = color
+1  1  0  0  0       tiles[0][1] = color
+0  1  1  1  0       tiles[1][1] = color           ==>   1 0 0 0 0 1 1 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0
+0  0  0  0  0       tiles[1][2] = color
+0  0  0  0  0       tiles[2][2] = color
+                    tiles[3][2] = color
