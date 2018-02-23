@@ -132,12 +132,14 @@ Reformulated statements, giving the same answer:\\
 
 \textbf{Task 1:}
 
+
+
 \begin{verbatim}
 
 
 	class Shape {
 	public:
-	    sf::Color tiles[4][4];
+	    sf::Color tiles[6][6];
 	    sf::Vector2i pos;
 	    // times since last downward movement
 	    float time;
@@ -155,14 +157,14 @@ Reformulated statements, giving the same answer:\\
 	};
 
 	void Shape::rotateLeft() {
-	    sf::Color tmp[4][4];
-	    for(int i = 0; i < 4; i++) {
-	        for(int j = 0; j < 4; j++) {
+	    sf::Color tmp[6][6];
+	    for(int i = 0; i < 6; i++) {
+	        for(int j = 0; j < 6; j++) {
 	            tmp[i][j]=tiles[j][3-i];
 	        }
 	    }
-	    for(int i = 0; i < 4; i++) {
-	        for(int j = 0; j < 4; j++) {
+	    for(int i = 0; i < 6; i++) {
+	        for(int j = 0; j < 6; j++) {
 	            tiles[i][j]=tmp[i][j];
 	        }
 	    }
@@ -182,8 +184,8 @@ Reformulated statements, giving the same answer:\\
 	    sf::CircleShape s;
 	    s.setRadius(8);
 	    s.setOrigin(8,8);
-	    for(int i = 0; i < 4; i++) {
-	        for(int j = 0; j < 4; j++) {
+	    for(int i = 0; i < 6; i++) {
+	        for(int j = 0; j < 6; j++) {
 	            if(tiles[i][j] != sf::Color::Black) {
 	                s.setFillColor(tiles[i][j]);
 	                s.setPosition(sf::Vector2f(pos.x * 16 + 16 * i + 100, pos.y * 16 + 16 * j + 100));

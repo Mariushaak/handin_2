@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include "polyminos.h"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ using namespace std;
 class Shape
 {
 public:
-	sf::Color tiles[4][4];
+	sf::Color tiles[6][6];
 	sf::Vector2i pos;
 
 	// times since last downward movement
@@ -37,14 +38,14 @@ public:
 
 void Shape::rotateLeft()
 {
-	sf::Color tmp[4][4];
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			tmp[i][j] = tiles[j][3 - i];
+	sf::Color tmp[6][6];
+	for (int i = 0; i < 6; i++) {
+		for (int j = 0; j < 6; j++) {
+			tmp[i][j] = tiles[j][5 - i];
 		}
 	}
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
+	for (int i = 0; i < 6; i++) {
+		for (int j = 0; j < 6; j++) {
 			tiles[i][j] = tmp[i][j];
 		}
 	}
@@ -70,63 +71,21 @@ void Shape::init()
 	time = 0.0f;
 
 	// fill with black tiles
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
+	for (int i = 0; i < 6; i++) {
+		for (int j = 0; j < 6; j++) {
 			tiles[i][j] = sf::Color::Black;
 		}
 	}
 
-
-	switch (rand() % 7) {
+	int shapenr = 0;						// rand() % 7;
+	switch (shapenr) {
 
 	case 0:
-		tiles[2][0] = sf::Color::White;
-		tiles[2][1] = sf::Color::White;
-		tiles[2][2] = sf::Color::White;
-		tiles[2][3] = sf::Color::White;
-		break;
-
-	case 1:
-		tiles[0][2] = sf::Color::Blue;
-		tiles[1][2] = sf::Color::Blue;
-		tiles[1][1] = sf::Color::Blue;
-		tiles[2][1] = sf::Color::Blue;
-		break;
-
-	case 2:
-		tiles[0][2] = sf::Color::Cyan;
-		tiles[1][2] = sf::Color::Cyan;
-		tiles[2][2] = sf::Color::Cyan;
-		tiles[1][1] = sf::Color::Cyan;
-		break;
-
-	case 3:
-		tiles[1][1] = sf::Color::Yellow;
-		tiles[1][2] = sf::Color::Yellow;
-		tiles[2][1] = sf::Color::Yellow;
-		tiles[2][2] = sf::Color::Yellow;
-		break;
-
-	case 4:
-		tiles[1][0] = sf::Color::Green;
-		tiles[1][1] = sf::Color::Green;
-		tiles[1][2] = sf::Color::Green;
-		tiles[2][2] = sf::Color::Green;
-		break;
-
-	case 5:
-		tiles[1][0] = sf::Color::Magenta;
-		tiles[1][1] = sf::Color::Magenta;
-		tiles[1][2] = sf::Color::Magenta;
-		tiles[2][0] = sf::Color::Magenta;
-		break;
-
-	case 6:
-		tiles[0][1] = sf::Color(229, 204, 255);
-		tiles[1][2] = sf::Color(229, 204, 255);
-		tiles[1][1] = sf::Color(229, 204, 255);
-		tiles[2][2] = sf::Color(229, 204, 255);
+		for (int i = 0; i < 6; i++) {
+			tiles[polyminos(shapenr, i, 1)][polyminos(shapenr, i, 2)] = sf::Color::White;
+		}
 	}
+
 
 }
 
@@ -144,8 +103,8 @@ void Shape::draw(sf::RenderWindow& w)
 	sf::CircleShape s;
 	s.setRadius(8);
 	s.setOrigin(8, 8);
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
+	for (int i = 0; i < 6; i++) {
+		for (int j = 0; j < 6; j++) {
 			if (tiles[i][j] != sf::Color::Black) {
 				s.setFillColor(tiles[i][j]);
 				s.setPosition(sf::Vector2f(pos.x * 16 + 16 * i + 100, pos.y * 16 + 16 * j + 100));
@@ -184,8 +143,8 @@ void Board::reduce()
 bool Board::intersect(Shape& shape)
 {
 	bool intersect = false;
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
+	for (int i = 0; i < 6; i++) {
+		for (int j = 0; j < 6; j++) {
 			if (tiles[i + shape.pos.x][j + shape.pos.y] != sf::Color::Black &&
 				shape.tiles[i][j] != sf::Color::Black)
 				intersect = true;
@@ -210,8 +169,8 @@ void Board::draw(sf::RenderWindow& w)
 
 void Board::add(Shape& shape)
 {
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
+	for (int i = 0; i < 6; i++) {
+		for (int j = 0; j < 6; j++) {
 
 			if (shape.tiles[i][j] != sf::Color::Black) {
 				tiles[i + shape.pos.x][j + shape.pos.y] = shape.tiles[i][j];
