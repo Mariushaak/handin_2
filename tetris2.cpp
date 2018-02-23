@@ -78,13 +78,11 @@ void Shape::init()
 	}
 
 	int shapenr = 0;						// rand() % 7;
-	switch (shapenr) {
 
-	case 0:
-		for (int i = 0; i < 6; i++) {
+		for (int i = shapenr; i < 6; i++) {
 			tiles[polyminos(shapenr, i, 1)][polyminos(shapenr, i, 2)] = sf::Color::White;
 		}
-	}
+	
 
 
 }

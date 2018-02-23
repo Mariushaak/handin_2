@@ -1,4 +1,12 @@
 //Here you can make your Polyminos of choice. 
+//You can draw your polyminos like this and follow the explanation in the comments below
+//	0  1  2  3	4  5
+//0 
+//1    x
+//2       x  x  x
+//3    x        x
+//4
+//5
 
 int polyminos(int x, int y, int z) {
 
