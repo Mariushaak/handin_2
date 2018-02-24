@@ -128,6 +128,52 @@ Reformulated statements, giving the same answer:\\
 \end{tabular}
 
 
+\section{Task 3:}
+
+The forums at Stackoverflow.com was used for the solution to this task. \\
+
+The program is written entirely using C++, as we are most familiar with this syntax.
+In addition it was limited time from the lecture to when a complete
+implementation using GeCode would have had to be finished, this also made it more practical to use C++. \\
+
+\textbf{Exercise A:} \\
+
+in 'main()' the function 'solved()' is called on the grid with an unknown number of
+spots set to 0. 
+
+
+\begin{verbatim}
+
+	if (!clear(grid, r, c)) { return true; }
+	for (int i = 1; i <= 9; i++) {
+			if (isSafe(grid, r, c, i)) { grid[r][c] = i;
+					if (solve(grid)) { return true; }
+					grid[r][c] = 0;
+			}
+
+
+
+\end{verbatim}
+
+
+\textbf{Exercise B:} \\
+
+To create a new puzzle, a function that removes an unknown amount of numbers is
+cast on the completed grid inside 'main()'. A random number engine is used to create a number
+between 0 and 3. The function loops over every row and coloumn, and if the random number
+equals 0 or 1, then the position is set to 0. \\
+This function may result in an un-solveable game, but this very rarely happens. \\
+The if statement can be changed to create easier or harder puzzles, depending on how many
+numbers are to be removed from board. \\
+
+\begin{verbatim}
+
+std::uniform_int_distribution<> dist(0,4);
+x = dist(generator);
+if (x==0 || x==1) { grid[r][c] = 0; }
+
+\end{verbatim}
+
 \section{\textbf{Code Appendix:}}
 
 \textbf{Task 1:}
@@ -135,7 +181,6 @@ Reformulated statements, giving the same answer:\\
 
 
 \begin{verbatim}
-
 
 	class Shape {
 	public:
@@ -274,6 +319,116 @@ Reformulated statements, giving the same answer:\\
 
 \end{verbatim}
 
+
+\textbf{Task 3:} \\
+
+\begin{verbatim}
+
+	#include <iostream>
+	#include <cstdio>
+	#include <cstring>
+	#include <cstdlib>
+	#include <random>
+
+	const int N = 9;
+
+	bool solve(int grid[N][N]);
+	bool clear(int grid[N][N], int &row, int &col);
+	bool usedRow(int grid[N][N], int row, int num);
+	bool usedCol(int grid[N][N], int col, int num);
+	bool usedBlock(int grid[N][N], int blockRow, int blcokCol, int num);
+	bool isSafe(int grid[N][N], int row, int col, int num);
+	void printGrid(int grid[N][N]);
+
+	int main() {
+
+	    std::random_device rand;
+	    std::default_random_engine generator(rand());
+	    std::uniform_int_distribution<> dist(0,4);
+
+	    int x;
+	    int grid[N][N] =
+	    {
+	        {2, 9, 5,   7, 4, 3,    8, 6, 1},
+	        {4, 3, 1,   8, 6, 5,    9, 2, 7},
+	        {8, 7, 6,   1, 9, 2,    5, 4, 3},
+
+	        {3, 8, 7,   4, 5, 9,    2, 1, 6},
+	        {6, 1, 2,   3, 8, 7,    4, 9, 5},
+	        {5, 4, 9,   2, 1, 6,    7, 3, 8},
+
+	        {7, 6, 3,   5, 2, 4,    1, 8, 9},
+	        {9, 2, 8,   6, 7, 1,    3, 5, 4},
+	        {1, 5, 4,   9, 3, 8,    6, 7, 2}
+	    };
+
+	        for (int r = 0; r < N; r++) {
+	            for (int c = 0; c < N; c++) {
+	                x = dist(generator);
+	                if (x==0 || x==1) { grid[r][c] = 0; }
+	            }
+	        }
+
+	    printGrid(grid); std::cout << "\n";
+
+	    if(solve(grid)) { printGrid(grid); }
+	    return 0;
+	}
+
+	bool solve(int grid[N][N]) {
+	    int r, c;
+	    if (!clear(grid, r, c)) { return true; }
+	    for (int i = 1; i <= 9; i++) {
+	        if (isSafe(grid, r, c, i)) { grid[r][c] = i;
+	            if (solve(grid)) { return true; }
+	            grid[r][c] = 0;
+	        }
+	    } return false;
+	}
+
+	bool clear(int grid[N][N], int &r, int &c) {
+	    for (r = 0; r < N; r++) {
+	        for (c = 0; c < N; c++) {
+	            if (grid[r][c] == 0) { return true; }
+	        }
+	    } return false;
+	}
+
+	bool usedRow(int grid[N][N], int r, int n) {
+	    for (int c = 0; c < N; c++) {
+	        if (grid[r][c] == n) { return true; }
+	    } return false;
+	}
+
+	bool usedCol(int grid[N][N], int c, int n) {
+	    for (int r = 0; r < N; r++) {
+	        if (grid[r][c] == n) { return true; }
+	    } return false;
+	}
+
+	bool usedBlock(int grid[N][N], int blockRow, int blockCol, int n) {
+	    for (int r = 0; r < 3; r++) {
+	        for (int c = 0; c < 3; c++) {
+	            if (grid[r + blockRow][c + blockCol] == n) { return true; }
+	        }
+	    } return false;
+	}
+
+	bool isSafe(int grid[N][N], int r, int c, int n) {
+	    return !usedRow(grid, r, n) && !usedCol(grid, c, n) &&
+	    !usedBlock(grid, r - r % 3 , c - c % 3, n);
+	}
+
+	void printGrid(int grid[N][N]) {
+	    for (int r = 0; r < N; r++) {
+	        for (int c = 0; c < N; c++) {
+	            std::cout << grid[r][c] << " ";
+	        } std::cout << "\n";
+	    }
+	}
+
+
+\end{verbatim}
 
 
 
