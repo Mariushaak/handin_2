@@ -40,59 +40,5 @@ int polyminos(int x, int y, int z) {
 				return 2;
 			return 5;
 		}								//All this sums up to a shape that is 1x6 in size, which is a straigth line
-/*
-	case 1:
-		tiles[1][1] = sf::Color::Blue;
-		tiles[1][2] = sf::Color::Blue;
-		tiles[1][3] = sf::Color::Blue;
-		tiles[2][3] = sf::Color::Blue;
-		tiles[3][3] = sf::Color::Blue;
-		tiles[4][3] = sf::Color::Blue;
-		break;
-
-	case 2:
-		tiles[2][1] = sf::Color::Cyan;
-		tiles[2][2] = sf::Color::Cyan;
-		tiles[2][3] = sf::Color::Cyan;
-		tiles[2][4] = sf::Color::Cyan;
-		tiles[3][2] = sf::Color::Cyan;
-		tiles[3][3] = sf::Color::Cyan;
-		break;
-
-	case 3:
-		tiles[1][2] = sf::Color::Yellow;
-		tiles[2][1] = sf::Color::Yellow;
-		tiles[2][2] = sf::Color::Yellow;
-		tiles[2][3] = sf::Color::Yellow;
-		tiles[2][4] = sf::Color::Yellow;
-		tiles[3][2] = sf::Color::Yellow;
-		break;
-
-	case 4:
-		tiles[1][2] = sf::Color::Green;
-		tiles[1][3] = sf::Color::Green;
-		tiles[2][1] = sf::Color::Green;
-		tiles[2][2] = sf::Color::Green;
-		tiles[2][3] = sf::Color::Green;
-		tiles[3][2] = sf::Color::Green;
-		break;
-
-	case 5:
-		tiles[1][2] = sf::Color::Magenta;
-		tiles[1][3] = sf::Color::Magenta;
-		tiles[2][2] = sf::Color::Magenta;
-		tiles[2][3] = sf::Color::Magenta;
-		tiles[3][2] = sf::Color::Magenta;
-		tiles[3][3] = sf::Color::Magenta;
-		break;
-
-	case 6:
-		tiles[1][2] = sf::Color(229, 204, 255);
-		tiles[2][2] = sf::Color(229, 204, 255);
-		tiles[2][3] = sf::Color(229, 204, 255);
-		tiles[3][2] = sf::Color(229, 204, 255);
-		tiles[4][1] = sf::Color(229, 204, 255);
-		tiles[4][2] = sf::Color(229, 204, 255);
-		*/
 	}
 }

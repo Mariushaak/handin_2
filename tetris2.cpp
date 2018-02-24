@@ -11,6 +11,9 @@ using namespace std;
 //
 // Tetris
 //
+
+
+
 class Shape
 {
 public:
@@ -79,10 +82,10 @@ void Shape::init()
 
 	int shapenr = 0;						// rand() % 7;
 
-		for (int i = shapenr; i < 6; i++) {
-			tiles[polyminos(shapenr, i, 1)][polyminos(shapenr, i, 2)] = sf::Color::White;
-		}
-	
+	for (int i = shapenr; i < 6; i++) {
+		tiles[polyminos(shapenr, i, 1)][polyminos(shapenr, i, 2)] = sf::Color::White;
+	}
+
 
 
 }
@@ -131,7 +134,6 @@ public:
 	// render board
 	void draw(sf::RenderWindow& w);
 };
-
 
 void Board::reduce()
 {
