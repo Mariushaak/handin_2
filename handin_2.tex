@@ -139,7 +139,10 @@ implementation using GeCode would have had to be finished, this also made it mor
 \textbf{Exercise A:} \\
 
 in 'main()' the function 'solved()' is called on the grid with an unknown number of
-spots set to 0. 
+spots set to 0. 'clear()' returns solved as true if the position != 0. \\
+'isSafe()' utilizes three functions to make sure the placement of the number i (in the loop) is
+not already placed in the relevant row, column and block. A block is 1 of 9 3x3 sized grids within
+the 9x9 grid. \\
 
 
 \begin{verbatim}
@@ -150,7 +153,6 @@ spots set to 0.
 					if (solve(grid)) { return true; }
 					grid[r][c] = 0;
 			}
-
 
 
 \end{verbatim}
