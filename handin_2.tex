@@ -3,6 +3,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{url}
+\usepackage{fancyvrb}
 \usepackage[margin=1in]{geometry}
 
 \title{Hand in Module 2}
@@ -194,12 +195,12 @@ the 9x9 grid. \\
 
 \begin{verbatim}
 
-	if (!clear(grid, r, c)) { return true; }
-	for (int i = 1; i <= 9; i++) {
-			if (isSafe(grid, r, c, i)) { grid[r][c] = i;
-					if (solve(grid)) { return true; }
-					grid[r][c] = 0;
-			}
+ 	if (!clear(grid, r, c)) { return true; }
+ 	for (int i = 1; i <= 9; i++) {
+ 			if (isSafe(grid, r, c, i)) { grid[r][c] = i;
+ 					if (solve(grid)) { return true; }
+ 					grid[r][c] = 0;
+ 			}
 
 
 \end{verbatim}
