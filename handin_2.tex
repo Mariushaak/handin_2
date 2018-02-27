@@ -55,7 +55,8 @@ row and upwards, setting the current row to be equal to the row above, giving th
 	              }
 \end{verbatim}
 
-As a little coding-exercise from out part, we also added the functionality of pressing spacebar to make the shapes move all the way down until it intersects with other shapes. We also added a score.
+As a little coding-exercise from out part, we also added the functionality of pressing spacebar to make the shapes move all the way down
+until it intersects with other shapes. We also added a score. \\
 
 
 \section{Task 2:}
@@ -74,7 +75,7 @@ The puzzle involves encountering three different people, person A, B and C. \\
 
 They all have their own statements: \\
 
-	A: "C is the knight. hot dog"\\
+	A: "C is the knight."\\
 	B: "A is the knight."\\
 	C: "B is the knave." \\
 
@@ -183,6 +184,52 @@ if (x==0 || x==1) { grid[r][c] = 0; }
 
 
 \begin{verbatim}
+
+
+	//Here you can make your Polyminos of choice.
+	//You can draw your polyminos like this and follow the explanation in the comments below
+	//	0  1  2  3	4  5
+	//0
+	//1    x
+	//2       x  x  x
+	//3    x        x
+	//4
+	//5
+
+	int polyminos(int x, int y, int z) {
+
+		switch (x) {						//x = shape number
+
+		case 0:
+
+			switch (y) {					//y = tile number, totalling at 6
+			case 0:
+				if (z == 1)					//if z = 1 means its the x coordinate of the tile you want
+					return 2;				//in this case the tile (2, 0) will be coloured
+				return 0;
+			case 1:
+				if (z == 1)					//In this case tile (2,1) will be coloured
+					return 2;
+				return 1;
+			case 2:
+				if (z == 1)
+					return 2;
+				return 2;
+			case 3:
+				if (z == 1)
+					return 2;
+				return 3;
+			case 4:
+				if (z == 1)
+					return 2;
+				return 4;
+			case 5:
+				if (z == 1)
+					return 2;
+				return 5;
+			}								//All this sums up to a shape that is 1x6 in size, which is a straigth line
+	/*
+
 
 	class Shape {
 	public:
@@ -317,6 +364,206 @@ if (x==0 || x==1) { grid[r][c] = 0; }
 	        }
 	    }
 	}
+
+	#include <SFML/Graphics.hpp>
+	#include <cmath>
+	#include <cstdlib>
+	#include <iostream>
+	#include <sstream>
+
+	#ifndef _MYHEADER_H_INCLUDED
+	#define _MYHEADER_H_INCLUDED
+	#endif
+	#include "Shape.h"
+
+	using namespace std;
+
+	int score;  // Defining counter for tracking score.
+
+
+	class Board {
+	public:
+	    sf::Color tiles[12][20];
+
+	    Board();
+
+	    // add a shape to the board
+	    void add(Shape& shape);
+
+	    // check if a shape intersects with the board
+	    bool intersect(Shape& shape);
+
+	    // remove full lines - should be implemented by you
+	    void reduce();
+
+	    // render board
+	    void draw(sf::RenderWindow& w);
+	};
+
+	void Board::reduce() {
+	    for(int i = 3; i < 19; i++) {
+	        int count = 0;
+	        int tilecount = 0;
+	        for(int j = 1; j < 11; j++) {
+	            if (tiles[j][i] != sf::Color::Black) {
+	                count++;
+	                if(count == 10) {
+	                    score = score+100;
+	                    tilecount = i;
+	                    for(int k = tilecount; k >= 3; k--) {
+	                        for(int j = 1; j < 11; j++) {
+	                            tiles[j][k] = tiles[j][k-1];
+	                        }
+	                    }
+	                    break;
+	                }
+	            }
+	        }
+	    }
+	}
+
+	bool Board::intersect(Shape& shape) {
+	    bool intersect = false;
+	    for(int i = 0; i < 4; i++) {
+	        for(int j = 0; j < 4; j++) {
+	            if(tiles[i+shape.pos.x][j+shape.pos.y] != sf::Color::Black &&
+	               shape.tiles[i][j] != sf::Color::Black)
+	                intersect = true;
+	        }
+	    }
+	    return intersect;
+	}
+
+	void Board::draw(sf::RenderWindow& w) {
+	    sf::CircleShape s;
+	    s.setRadius(8);
+	    s.setOrigin(8,8);
+	    for(int i = 0; i < 12; i++) {
+	        for(int j = 0; j < 20; j++) {
+	            s.setFillColor(tiles[i][j]);
+	            s.setPosition(sf::Vector2f(16 * i + 100, 16*j + 100));
+	            w.draw(s);
+	        }
+	    }
+	}
+
+	void Board::add(Shape& shape) {
+	    for(int i = 0; i < 4; i++) {
+	        for(int j = 0; j < 4; j++) {
+	            if(shape.tiles[i][j] != sf::Color::Black) {
+	                tiles[i + shape.pos.x][j + shape.pos.y] = shape.tiles[i][j];
+	            }
+	        }
+	    }
+	}
+
+	Board::Board() {
+	    // fill with black
+	    for(int i = 0; i < 20; i++) {
+	        for(int j = 0; j < 12; j++) {
+	            tiles[j][i] = sf::Color::Black;
+	        }
+	    }
+	    for(int i = 0; i < 12; i++) {
+	        tiles[i][19] = sf::Color::Red;
+	    }
+	    for(int i = 0; i < 19; i++) {
+	        tiles[0][i] = sf::Color::Red;
+	        tiles[11][i] = sf::Color::Red;
+	    }
+	}
+
+	int main() {
+	    sf::RenderWindow window(sf::VideoMode(512, 512), "Tetris");
+
+	    sf::Clock clock;
+	    clock.restart();
+	    Shape shape;
+	    Board board;
+
+	    sf::Text hud;
+	    sf::Font font;
+	    font.loadFromFile("game_over.ttf");
+	    hud.setFont(font);
+	    hud.setCharacterSize(65);
+	    hud.setFillColor(sf::Color::White);
+	    hud.setPosition(350,200);
+
+	    while (window.isOpen())
+	    {
+	        // check all the window's events that were triggered since the last iteration of the loop
+	        sf::Event event;
+
+	        while (window.pollEvent(event))
+	        {
+	            // "close requested" event: we close the window
+	            if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	                { window.close(); }
+
+	            if (event.type == sf::Event::KeyPressed) {
+	                if(event.key.code == sf::Keyboard::Left) {
+	                    shape.pos.x -= 1;
+	                    if (board.intersect(shape)) {
+	                        shape.pos.x += 1;
+	                        cout << "intersect left" << endl;
+	                    }
+	                }
+	                if(event.key.code == sf::Keyboard::Right) {
+	                    shape.pos.x += 1;
+	                    if(board.intersect(shape)) {
+	                        shape.pos.x -= 1;
+	                        cout << "intersect right" << endl;
+	                    }
+	                }
+	                if(event.key.code == sf::Keyboard::Down) {
+	                    shape.pos.y += 1;
+	                    if(board.intersect(shape)) {
+	                        shape.pos.y -= 1;
+	                        cout << "intersect down" << endl;
+	                    }
+	                }
+	                if(event.key.code == sf::Keyboard::Up) {
+	                    shape.rotateLeft();
+	                    if(board.intersect(shape)) {
+	                        shape.rotateRight();
+	                        cout << "intersect rotate" << endl;
+	                    }
+	                }
+	                if(event.key.code == sf::Keyboard::Space) {
+	                    shape.pos.y += 2;
+	                    if(board.intersect(shape)) {
+	                        shape.pos.y -= 1;
+	                        cout << "intersect down" << endl;
+	                    }
+	                }
+	            }
+	            std::stringstream ss;
+	            ss << "Score: " << score;
+	            hud.setString(ss.str());
+	        }
+
+	        float dt = clock.restart().asSeconds();
+
+	        shape.update(dt);
+
+	        if(board.intersect(shape)) {
+	            shape.pos.y -= 1;
+	            board.add(shape);
+	            board.reduce();
+	            shape.init();
+	            if(board.intersect(shape)) {
+	                cout << "GAME OVER" << endl;
+	            }
+	        }
+	        window.clear(sf::Color::Black);
+	        board.draw(window);
+	        window.draw(hud);
+	        shape.draw(window);
+	        window.display();
+	    }
+	    return 0;
+	}
+
 
 
 \end{verbatim}
