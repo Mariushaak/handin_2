@@ -181,6 +181,13 @@ Reformulated statements, giving the same answer:\\
 
 The forums at Stackoverflow.com was used for the solution to this task. \\
 
+The logic for checking each individual 3x3 block was found by looking at the 3x3 check in source,
+and the logic for the cleared() function was found by utilizing the find() function in the source.
+
+\begin{thebibliography}{99}
+\bibitem{shapes}https://stackoverflow.com/questions/40702099/solve-sudoku-with-backtracking-c
+\end{thebibliography}
+
 The program is written entirely using C++, as we are most familiar with this syntax.
 In addition it was limited time from the lecture to when a complete
 implementation using GeCode would have had to be finished, this also made it more practical to use C++. \\
@@ -540,7 +547,7 @@ public:
 
 =======
 	Shape();
->>>>>>> b968024aa7b5f27a501459ec7471071ef25368bd
+
 
 	// reinitialise the shape: move to top and change shape
 	void init();
@@ -602,9 +609,6 @@ void Shape::init()
 	for (int i = shapenr; i < 6; i++) {
 		tiles[polyminos(shapenr, i, 1)][polyminos(shapenr, i, 2)] = sf::Color::White;
 	}
-
-
-
 }
 
 void Shape::update(float dt)
